@@ -1,0 +1,208 @@
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+  public static void main(String[] args) {
+    System.out.println("__          __  _                          _ ");
+    System.out.println("\\ \\        / / | |                        | |");
+    System.out.println(" \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___| |");
+    System.out.println("  \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\ |");
+    System.out.println("   \\  /\\  /  __/ | (_| (_) | | | | | |  __/_|");
+    System.out.println("    \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___(_)\n\n");
+    Scanner sc = new Scanner(System.in);
+    String words[] = {"blood", "zebulon", "america", "slurring", "number", "captcha", "boots", "crazy", "mediocre", "whiteboard"};
+    
+    boolean play = true;
+    int playCount = 0;
+    boolean playFinished = false;
+    
+    while (play) {
+      String choice = words[(int) (10 * Math.random())];
+
+      //below line is for debug/testing to print the intended guess
+     // System.out.println(choice);
+
+      int guessCount = 7;
+
+      String[] printOut = new String[choice.length()];
+      for (int i = 0; i < choice.length(); i++) {
+          printOut[i] = "_ ";
+      }
+
+      String[] guessedLetters = new String[26];
+      int guessedLetterCount = 0;
+      int correctCount = 0;
+      
+      System.out.println("New game starting: \n");
+      
+      while (!playFinished) {
+        
+        String [] ChoiceArray = new String[choice.length()];
+        for(int i = 0; i<choice.length(); i++){
+          ChoiceArray[i] = choice.substring(i, i+1);
+        }
+
+        System.out.print("The word is: ");
+        
+        //prints out dashes
+        for (int i = 0; i < printOut.length; i++) {
+          System.out.print(printOut[i]);
+        }
+        System.out.println();
+        
+        System.out.print("Attempts left: " + guessCount + "\nGuessed letters: ");
+        
+        for (int i = 0; i < guessedLetterCount; i++) {
+          System.out.print(guessedLetters[i] + " ");
+        }
+        
+        System.out.println();
+        System.out.print("Guess a letter: ");
+        String guess = sc.nextLine();
+        boolean wordUsed = false;
+        for (int i = 0; i < guessedLetterCount; i++) {
+          if (guessedLetters[i].equals(guess)) {
+            wordUsed = true;
+            System.out.println("Already Guessed!");
+          }
+        }
+
+        
+        if (choice.contains(guess) && !wordUsed) {
+          System.out.println();
+          System.out.print("Correct guess! ");
+
+          //replace
+          for(int i = 0; i<choice.length(); i++){
+            if(choice.substring(i, i+1).equals(guess)){
+              printOut[i] = guess;
+            }
+          }
+
+          //counter for how much of the word has been guessed correctly
+          for(int j=0; j<ChoiceArray.length; j++){
+            if(guess.equals(ChoiceArray[j])){
+               correctCount++;
+            }
+          }
+          
+        }
+        else {
+          System.out.println();
+          System.out.print("Incorrect guess. ");
+          guessCount--;
+        }
+        //adds to array if its guessed and hasnt already been used.
+        if (!wordUsed) {
+          guessedLetters[guessedLetterCount] = guess;
+          guessedLetterCount++;
+        }
+        
+        if(guessCount == 7){
+          System.out.println();
+          System.out.println(
+            "     |-------\n"+ 
+            "     |       \n"+
+            "     |        \n"+
+            "     |       \n" + 
+            "     |        \n" +
+            "  -------\n" 
+          );
+        }
+        else if(guessCount == 6){
+          System.out.println();
+          System.out.println(
+            "     |-------\n"+ 
+            "     |       |\n"+
+            "     |        \n"+
+            "     |       \n" + 
+            "     |        \n" +
+            "  -------\n" 
+          );
+        }
+        else if(guessCount == 5){
+          System.out.println();
+          System.out.println(
+            "     |-------\n"+ 
+            "     |       |\n"+
+            "     |       o \n"+
+            "     |       \n" + 
+            "     |        \n" +
+            "  -------\n" 
+          );
+        }
+        else if(guessCount == 4){
+          System.out.println();
+          System.out.println(
+            "     |-------\n"+ 
+            "     |       |\n"+
+            "     |       o \n"+
+            "     |      / \n" + 
+            "     |        \n" +
+            "  -------\n" 
+          );
+        }
+        else if(guessCount == 3){
+          System.out.println();
+          System.out.println(
+            "     |-------\n"+ 
+            "     |       |\n"+
+            "     |       o \n"+
+            "     |      /| \n" + 
+            "     |        \n" +
+            "  -------\n" 
+          );
+        }
+        else if(guessCount == 2){
+          System.out.println();
+          System.out.println(
+            "     |-------\n"+ 
+            "     |       |\n"+
+            "     |       o \n"+
+            "     |      /|\\ \n" + 
+            "     |        \n" +
+            "  -------\n" 
+          );
+        }
+        else if(guessCount == 1){
+          System.out.println();
+          System.out.println(
+            "     |-------\n"+ 
+            "     |       |\n"+
+            "     |       o \n"+
+            "     |      /|\\ \n" + 
+            "     |        \\\n" +
+            "  -------\n" 
+          );
+        }
+        else if(guessCount == 0){
+          System.out.println();
+          System.out.println(
+            "     |-------\n"+ 
+            "     |       |\n"+
+            "     |       o \n"+
+            "     |      /|\\ \n" + 
+            "     |      / \\\n" +
+            "  -------\n" 
+          );
+        }
+
+        if(correctCount == ChoiceArray.length){
+          System.out.println("You win!");
+          playCount++;
+          playFinished = true;
+        }
+        if(guessCount == 0){
+          System.out.println("You lose!");
+          playCount++;
+          playFinished = true;
+        }
+      }
+      playFinished = false;
+      System.out.println("Would you like to play again? (y/n)");
+      String playAgain = sc.nextLine();
+      if (playAgain.equals("n")) {
+        play = false;
+      }
+    }
+  }
+}
